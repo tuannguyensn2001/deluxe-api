@@ -14,7 +14,7 @@ class CollectionController extends Controller
     public function index()
     {
         $collection = Collection::all();
-        return response()->json($collection);
+        return response()->json($collection,200);
     }
 
     public function create(Request $request)
