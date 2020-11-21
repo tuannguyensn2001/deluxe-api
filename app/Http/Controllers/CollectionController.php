@@ -198,6 +198,5 @@ class CollectionController extends Controller
         return response()->json($attributes,200);
 
 
-        return response()->json($request->get('id'));
     }
 }
