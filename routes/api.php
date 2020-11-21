@@ -24,3 +24,4 @@ Route::get('/collection',[CollectionController::class,'index']);
 Route::post('/collection/create',[CollectionController::class,'create']);
 Route::get('/collection/show/{id}',[CollectionController::class,'show']);
 Route::put('/collection/edit',[CollectionController::class,'edit']);
+Route::delete('/collection/delete',[CollectionController::class,'delete']);

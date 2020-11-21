@@ -184,8 +184,20 @@ class CollectionController extends Controller
 
         return response()->json($map_attributes_datatype);
 
+    }
+
+    public function delete(Request $request)
+    {
+        $id = $request->get('id');
+        $collection = Collection::find($id);
+        $table = $collection->attr_table;
+        $collection->delete();
+        $attributes = Attributes::where('collection_id','=',$id)->delete();
+        DB::statement("DROP TABLE $table");
+
+        return response()->json($attributes,200);
 
 
-
+        return response()->json($request->get('id'));
     }
 }

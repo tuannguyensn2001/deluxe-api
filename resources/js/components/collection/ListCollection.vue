@@ -69,25 +69,36 @@ import DeleteWarning from "../modal/DeleteWarning";
         data(){
             return {
                 listCollection:[],
-                checkDelete: false,
+                collectionPickedDelete: -1,
             }
         },
         created(){
             axios.get('api/collection')
             .then(response=>{
+                console.log(response);
                 this.listCollection = response.data;
-            });
+            })
+            .catch(error=>console.log(error));
+            ;
         },
         methods:{
            deleteCollection(id)
            {
-               this.checkDelete = !this.checkDelete;
+               this.collectionPickedDelete = id;
            },
             setRoute(id){
                return `/collection/edit/${id}`;
             },
             confirmDelete(){
-               console.log("Đã xóa");
+               let id = this.collectionPickedDelete;
+               axios.delete('/api/collection/delete',{
+                    data:{
+                        id,
+                    },
+               })
+                .then(response=>{
+                    console.log(response.data);
+                })
             }
         }
     }

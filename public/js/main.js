@@ -79614,25 +79614,33 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       listCollection: [],
-      checkDelete: false
+      collectionPickedDelete: -1
     };
   },
   created: function created() {
     var _this = this;
 
     axios__WEBPACK_IMPORTED_MODULE_0___default().get('api/collection').then(function (response) {
+      console.log(response);
       _this.listCollection = response.data;
     });
   },
   methods: {
     deleteCollection: function deleteCollection(id) {
-      this.checkDelete = !this.checkDelete;
+      this.collectionPickedDelete = id;
     },
     setRoute: function setRoute(id) {
       return "/collection/edit/".concat(id);
     },
     confirmDelete: function confirmDelete() {
-      console.log("Đã xóa");
+      var id = this.collectionPickedDelete;
+      axios__WEBPACK_IMPORTED_MODULE_0___default().delete('/api/collection/delete', {
+        data: {
+          id: id
+        }
+      }).then(function (response) {
+        console.log(response.data);
+      });
     }
   }
 });
@@ -80249,10 +80257,10 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/collection/ListCollection.vue?vue&type=template&id=ec7f615c&scoped=true&bindings={\"listCollection\":\"data\",\"checkDelete\":\"data\",\"deleteCollection\":\"options\",\"setRoute\":\"options\",\"confirmDelete\":\"options\"}":
-/*!***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/collection/ListCollection.vue?vue&type=template&id=ec7f615c&scoped=true&bindings={"listCollection":"data","checkDelete":"data","deleteCollection":"options","setRoute":"options","confirmDelete":"options"} ***!
-  \***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/collection/ListCollection.vue?vue&type=template&id=ec7f615c&scoped=true&bindings={\"listCollection\":\"data\",\"collectionPickedDelete\":\"data\",\"deleteCollection\":\"options\",\"setRoute\":\"options\",\"confirmDelete\":\"options\"}":
+/*!**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/collection/ListCollection.vue?vue&type=template&id=ec7f615c&scoped=true&bindings={"listCollection":"data","collectionPickedDelete":"data","deleteCollection":"options","setRoute":"options","confirmDelete":"options"} ***!
+  \**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! namespace exports */
 /*! export render [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
@@ -80567,7 +80575,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n#app{\n  font-family: \"PT Sans\",sans-serif;\n}\n\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n#app{\r\n  font-family: \"PT Sans\",sans-serif;\n}\r\n\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -82229,7 +82237,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
-/* harmony import */ var _ListCollection_vue_vue_type_template_id_ec7f615c_scoped_true_bindings_listCollection_data_checkDelete_data_deleteCollection_options_setRoute_options_confirmDelete_options___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ListCollection.vue?vue&type=template&id=ec7f615c&scoped=true&bindings={"listCollection":"data","checkDelete":"data","deleteCollection":"options","setRoute":"options","confirmDelete":"options"} */ "./resources/js/components/collection/ListCollection.vue?vue&type=template&id=ec7f615c&scoped=true&bindings={\"listCollection\":\"data\",\"checkDelete\":\"data\",\"deleteCollection\":\"options\",\"setRoute\":\"options\",\"confirmDelete\":\"options\"}");
+/* harmony import */ var _ListCollection_vue_vue_type_template_id_ec7f615c_scoped_true_bindings_listCollection_data_collectionPickedDelete_data_deleteCollection_options_setRoute_options_confirmDelete_options___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ListCollection.vue?vue&type=template&id=ec7f615c&scoped=true&bindings={"listCollection":"data","collectionPickedDelete":"data","deleteCollection":"options","setRoute":"options","confirmDelete":"options"} */ "./resources/js/components/collection/ListCollection.vue?vue&type=template&id=ec7f615c&scoped=true&bindings={\"listCollection\":\"data\",\"collectionPickedDelete\":\"data\",\"deleteCollection\":\"options\",\"setRoute\":\"options\",\"confirmDelete\":\"options\"}");
 /* harmony import */ var _ListCollection_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ListCollection.vue?vue&type=script&lang=js */ "./resources/js/components/collection/ListCollection.vue?vue&type=script&lang=js");
 /* harmony import */ var _ListCollection_vue_vue_type_style_index_0_id_ec7f615c_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ListCollection.vue?vue&type=style&index=0&id=ec7f615c&scoped=true&lang=css */ "./resources/js/components/collection/ListCollection.vue?vue&type=style&index=0&id=ec7f615c&scoped=true&lang=css");
 
@@ -82237,7 +82245,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 ;
-_ListCollection_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__.default.render = _ListCollection_vue_vue_type_template_id_ec7f615c_scoped_true_bindings_listCollection_data_checkDelete_data_deleteCollection_options_setRoute_options_confirmDelete_options___WEBPACK_IMPORTED_MODULE_0__.render
+_ListCollection_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__.default.render = _ListCollection_vue_vue_type_template_id_ec7f615c_scoped_true_bindings_listCollection_data_collectionPickedDelete_data_deleteCollection_options_setRoute_options_confirmDelete_options___WEBPACK_IMPORTED_MODULE_0__.render
 _ListCollection_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__.default.__scopeId = "data-v-ec7f615c"
 /* hot reload */
 if (false) {}
@@ -82648,12 +82656,12 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/components/collection/ListCollection.vue?vue&type=template&id=ec7f615c&scoped=true&bindings={\"listCollection\":\"data\",\"checkDelete\":\"data\",\"deleteCollection\":\"options\",\"setRoute\":\"options\",\"confirmDelete\":\"options\"}":
-/*!*********************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./resources/js/components/collection/ListCollection.vue?vue&type=template&id=ec7f615c&scoped=true&bindings={"listCollection":"data","checkDelete":"data","deleteCollection":"options","setRoute":"options","confirmDelete":"options"} ***!
-  \*********************************************************************************************************************************************************************************************************************************************/
+/***/ "./resources/js/components/collection/ListCollection.vue?vue&type=template&id=ec7f615c&scoped=true&bindings={\"listCollection\":\"data\",\"collectionPickedDelete\":\"data\",\"deleteCollection\":\"options\",\"setRoute\":\"options\",\"confirmDelete\":\"options\"}":
+/*!********************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./resources/js/components/collection/ListCollection.vue?vue&type=template&id=ec7f615c&scoped=true&bindings={"listCollection":"data","collectionPickedDelete":"data","deleteCollection":"options","setRoute":"options","confirmDelete":"options"} ***!
+  \********************************************************************************************************************************************************************************************************************************************************/
 /*! namespace exports */
-/*! export render [provided] [no usage info] [missing usage info prevents renaming] -> ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/collection/ListCollection.vue?vue&type=template&id=ec7f615c&scoped=true&bindings={"listCollection":"data","checkDelete":"data","deleteCollection":"options","setRoute":"options","confirmDelete":"options"} .render */
+/*! export render [provided] [no usage info] [missing usage info prevents renaming] -> ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/collection/ListCollection.vue?vue&type=template&id=ec7f615c&scoped=true&bindings={"listCollection":"data","collectionPickedDelete":"data","deleteCollection":"options","setRoute":"options","confirmDelete":"options"} .render */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.d, __webpack_require__.r, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -82661,9 +82669,9 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => /* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_ListCollection_vue_vue_type_template_id_ec7f615c_scoped_true_bindings_listCollection_data_checkDelete_data_deleteCollection_options_setRoute_options_confirmDelete_options___WEBPACK_IMPORTED_MODULE_0__.render
+/* harmony export */   "render": () => /* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_ListCollection_vue_vue_type_template_id_ec7f615c_scoped_true_bindings_listCollection_data_collectionPickedDelete_data_deleteCollection_options_setRoute_options_confirmDelete_options___WEBPACK_IMPORTED_MODULE_0__.render
 /* harmony export */ });
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_ListCollection_vue_vue_type_template_id_ec7f615c_scoped_true_bindings_listCollection_data_checkDelete_data_deleteCollection_options_setRoute_options_confirmDelete_options___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./ListCollection.vue?vue&type=template&id=ec7f615c&scoped=true&bindings={"listCollection":"data","checkDelete":"data","deleteCollection":"options","setRoute":"options","confirmDelete":"options"} */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/collection/ListCollection.vue?vue&type=template&id=ec7f615c&scoped=true&bindings={\"listCollection\":\"data\",\"checkDelete\":\"data\",\"deleteCollection\":\"options\",\"setRoute\":\"options\",\"confirmDelete\":\"options\"}");
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_ListCollection_vue_vue_type_template_id_ec7f615c_scoped_true_bindings_listCollection_data_collectionPickedDelete_data_deleteCollection_options_setRoute_options_confirmDelete_options___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./ListCollection.vue?vue&type=template&id=ec7f615c&scoped=true&bindings={"listCollection":"data","collectionPickedDelete":"data","deleteCollection":"options","setRoute":"options","confirmDelete":"options"} */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/collection/ListCollection.vue?vue&type=template&id=ec7f615c&scoped=true&bindings={\"listCollection\":\"data\",\"collectionPickedDelete\":\"data\",\"deleteCollection\":\"options\",\"setRoute\":\"options\",\"confirmDelete\":\"options\"}");
 
 
 /***/ }),
