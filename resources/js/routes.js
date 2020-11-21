@@ -4,6 +4,8 @@ import Card from "./components/card/Card";
 import ListCollection from "./components/collection/ListCollection";
 import AddCollection from "./components/collection/AddCollection";
 import EditCollection from "./components/collection/EditCollection";
+import ListProduct from "./components/product/ListProduct";
+import AddProduct from "./components/product/AddProduct";
 
 const routes = createRouter({
     history: createWebHistory(),
@@ -30,6 +32,14 @@ const routes = createRouter({
             component: EditCollection,
             props: true,
         },
+        {
+            path: '/product',
+            component: ListProduct,
+        },
+        {
+            path: '/product/add',
+            component: AddProduct,
+        }
 
 
     ]

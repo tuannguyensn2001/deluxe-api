@@ -1,55 +1,61 @@
 <template>
-  <aside class="mdc-drawer mdc-drawer--dismissible app-drawer">
-    <nav class="mdc-drawer__drawer">
-      <nav class="mdc-drawer__content">
-        <div id="icon-with-text-demo" class="mdc-list">
+    <aside class="mdc-drawer mdc-drawer--dismissible app-drawer">
+        <nav class="mdc-drawer__drawer">
+            <nav class="mdc-drawer__content">
+                <div id="icon-with-text-demo" class="mdc-list">
 
-          <navbar-item-base
-          v-for="nav in listNav"
-          :key = nav.name
-          :name = nav.name
-          :icon = nav.icon
-          :link= nav.link
-          ></navbar-item-base>
+                    <navbar-item-base
+                        v-for="nav in listNav"
+                        :key=nav.name
+                        :name=nav.name
+                        :icon=nav.icon
+                        :link=nav.link
+                    ></navbar-item-base>
 
-        </div>
-      </nav>
-    </nav>
-  </aside>
+                </div>
+            </nav>
+        </nav>
+    </aside>
 </template>
 
 
 <script>
 import NavbarItemBase from "./NavbarItemBase";
-  export default {
-    components:{
-      NavbarItemBase,
+
+export default {
+    components: {
+        NavbarItemBase,
     },
-    data(){
-      return {
-        listNav: [],
-      }
+    data() {
+        return {
+            listNav: [],
+        }
     },
     created() {
-      this.listNav = [
-        {
-          name: "Quản lý thẻ",
-          icon: "receipt",
-          link: "/card",
-        },
-        {
-          name: "Quản lý nạp tiền",
-          icon: "receipt",
-          link: "/deposit",
-        },
-          {
-              name: "Quản lý nhóm sản phẩm",
-              icon: "receipt",
-              link: "/collection",
-          }
+        this.listNav = [
+            {
+                name: "Quản lý thẻ",
+                icon: "receipt",
+                link: "/card",
+            },
+            {
+                name: "Quản lý nạp tiền",
+                icon: "receipt",
+                link: "/deposit",
+            },
+            {
+                name: "Quản lý nhóm sản phẩm",
+                icon: "receipt",
+                link: "/collection",
+            },
+            {
+                name: "Quản lý sản phẩm",
+                icon: 'receipt',
+                link: '/product',
+            }
 
-      ]
+        ]
     }
 
-  }
+}
 </script>
