@@ -50,7 +50,7 @@ class CollectionController extends Controller
 
         $query = "CREATE TABLE ".$table." (";
         $query .= "product_id VARCHAR(255),";
-        $query .= "attribute_id VARCHAR(255),";
+        $query .= "attribute_id VARCHAR(255) PRIMARY KEY,";
         foreach($attributes as $key=>$index)
         {
             $line = "".$index['name']." ".$this->convert($index['data_type']).",";
@@ -198,5 +198,23 @@ class CollectionController extends Controller
         return response()->json($attributes,200);
 
 
+    }
+
+    public function details()
+    {
+        $result = [];
+        $collection = Collection::query()
+            ->select('id','name','attr_table')
+            ->get();
+
+        foreach ($collection as $index)
+        {
+            $item['collection'] = $index;
+            $item['attributes']= Attributes::where('collection_id','=',$index->id)->get();
+            array_push($result,$item);
+
+        }
+
+        return response()->json($result,200);
     }
 }

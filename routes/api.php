@@ -3,7 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CollectionController;
-
+use App\Http\Controllers\ProductController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -25,3 +25,8 @@ Route::post('/collection/create',[CollectionController::class,'create']);
 Route::get('/collection/show/{id}',[CollectionController::class,'show']);
 Route::put('/collection/edit',[CollectionController::class,'edit']);
 Route::delete('/collection/delete',[CollectionController::class,'delete']);
+Route::get('/collection/details',[CollectionController::class,'details']);
+
+
+Route::post('/product/create',[ProductController::class,'create']);
+

@@ -19,7 +19,10 @@ export default {
   components: {
     HeaderBase,
     NavbarBase
-  }
+  },
+    provide:{
+      baseURL: 'http://deluxee.com',
+    }
 }
 </script>
 

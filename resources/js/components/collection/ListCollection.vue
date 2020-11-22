@@ -79,7 +79,7 @@ import DeleteWarning from "../modal/DeleteWarning";
                 this.listCollection = response.data;
             })
             .catch(error=>console.log(error));
-            ;
+
         },
         methods:{
            deleteCollection(id)
