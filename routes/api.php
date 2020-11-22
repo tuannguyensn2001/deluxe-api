@@ -27,6 +27,7 @@ Route::put('/collection/edit',[CollectionController::class,'edit']);
 Route::delete('/collection/delete',[CollectionController::class,'delete']);
 Route::get('/collection/details',[CollectionController::class,'details']);
 
-
+Route::get('/product',[ProductController::class,'index']);
+Route::get('/product/show/{id}',[ProductController::class,'show']);
 Route::post('/product/create',[ProductController::class,'create']);
-
+Route::put('/product/edit',[ProductController::class,'edit']);

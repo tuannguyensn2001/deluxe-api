@@ -62,7 +62,7 @@ class CollectionController extends Controller
 
         DB::statement($query);
 
-        return response()->json($query);
+        return response()->json($query,200);
 
 
 

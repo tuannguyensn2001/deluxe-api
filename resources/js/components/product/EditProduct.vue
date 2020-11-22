@@ -1,4 +1,7 @@
 <template>
+    <div
+        :class="{global:true, dataLoaded: isLoaded}"
+    >
     <div class="container">
         <div class="form-group">
             <label for="name">Tên sản phẩm</label>
@@ -23,11 +26,16 @@
         </div>
 
         <div class="form-group">
-            <label for="thumbnail">Chọn ảnh</label>
+            <label for="thumbnail">Chọn ảnh
+                <a :href="product.thumbnail"
+                   target="_blank"
+                >Xem ảnh</a>
+            </label>
             <input
                 type="file"
                 class="form-control"
                 id="thumbnail"
+                @change="uploadFile"
             >
         </div>
 
@@ -36,10 +44,8 @@
             <select
                 class="form-select"
                 aria-label="Default select example"
-                @change="changeCollection"
                 v-model="product.collection_id"
             >
-                <option value="-1">Chọn</option>
                 <template v-for="collection in listCollection">
 
                     <option :value="collection.collection.id">
@@ -89,30 +95,35 @@
 
         <div class="form-group form-group-attributes">
             <div class="form-group"
-                 v-for="attributes in pickCollection"
+                 v-for="item in product.attributes"
             >
-                <label> {{ attributes.name }} </label>
-                <input
-                    type="text"
-                    class="form-control"
-                    v-model="product.attributes[attributes.code]"
-
+                <template
+                    v-for="(value,key) in item"
                 >
+                    <label> {{ convertCodeToName(key) }} </label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        v-model="item[key]"
+                    >
+                </template>
+
+
             </div>
         </div>
 
         <div class="form-group ">
             <button
                 class="btn btn-primary"
-                @click="addProduct"
+                @click="editProduct"
             >
-                Thêm mới
+                Edit
             </button>
         </div>
 
     </div>
+    </div>
 </template>
-
 
 <script>
 import axios from 'axios';
@@ -120,68 +131,77 @@ import firebase from 'firebase';
 
 export default {
     inject: ['baseURL'],
+    props: ['id'],
     data() {
         return {
             listCollection: [],
             product: {
                 collection_id: -1,
-                name: '',
-                unit: '',
-                price: '',
-                promotion: '',
-                description: '',
-                attributes: {},
-                thumbnail: '',
             },
-            pickCollection: [],
+            collection: {},
+            attributes: [],
             ref: firebase.storage().ref('product'),
+            isLoaded: false,
         }
     },
     created() {
-        axios.get(this.baseURL + '/api/collection/details')
-            .then(response => {
-                this.listCollection = response.data;
-            })
-            .catch(error => console.log(error));
-    },
-    methods: {
-        addProduct() {
-            this.uploadFile()
-            .then(url=>{
-                this.product.thumbnail = url;
-                axios.post(this.baseURL+'/api/product/create',{
-                    product: this.product,
-                })
-                    .then(response=>{
-                        if (response.status === 200){
-                            this.$router.push('/product');
-                        }
-                    });
+        this.getData()
+            .then(data => {
+                this.isLoaded = true;
             });
 
 
-        },
-        changeCollection() {
-            const value = this.product.collection_id;
-            this.pickCollection = this.listCollection.find(item => item.collection.id === value);
-            this.pickCollection = this.pickCollection.attributes;
+    },
+    methods: {
+        async getData() {
+            const responseCollection = await axios.get(this.baseURL + '/api/collection/details');
+            const responseProduct = await axios.get(this.baseURL + '/api/product/show/' + this.id)
+
+            this.listCollection = responseCollection.data;
+            this.product = responseProduct.data;
+
+            const collection_id = this.product.collection_id;
+            const responseCollectionDetails = await axios.get(this.baseURL + '/api/collection/show/' + collection_id);
+
+            this.collection = responseCollectionDetails.data.attributes;
+
         },
         async uploadFile() {
             const thumbnail = document.querySelector('#thumbnail');
             const file = thumbnail.files[0];
+            if (file === undefined) return null;
             const name = file.name;
             const metadata = {
                 contentType: file.type,
             }
             const task = this.ref.child(name).put(file, metadata);
             const snapshot = await task;
-            return await snapshot.ref.getDownloadURL();
+            this.product.thumbnail =  await snapshot.ref.getDownloadURL();
+        },
+        convertCodeToName(code) {
+            let result = '';
+            for (let index in this.collection) {
+                if (this.collection[index].code === code) {
+                    result = this.collection[index].name;
+                    break;
+                }
+            }
+            return result;
+        },
+        async editProduct() {
 
-        }
+            const response = await axios.put(this.baseURL+'/api/product/edit',{
+                product: this.product
+            });
+
+           if (response.status === 200){
+                this.$router.push('/product');
+           }
+        },
+
     }
 }
 </script>
-
 
 <style scoped>
 .container {
@@ -206,5 +226,10 @@ export default {
 .form-group-attributes {
     width: 92% !important;
 }
+.dataLoaded{
+    display: block !important;
+}
+.global{
+    display: none;
+}
 </style>
-

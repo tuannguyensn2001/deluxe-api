@@ -124,7 +124,10 @@ export default {
                 table: this.nameTable,
                 list: this.listAttributes,
             })
-            .then(data=>console.log(data.data))
+            .then(data=>{
+                console.log(data);
+
+            })
             .catch(error=>console.log(error));
         }
     }

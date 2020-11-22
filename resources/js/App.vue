@@ -18,10 +18,11 @@ export default {
   name: 'App',
   components: {
     HeaderBase,
-    NavbarBase
+    NavbarBase,
+
   },
     provide:{
-      baseURL: 'http://deluxee.com',
+      baseURL: 'http://deluxe.com',
     }
 }
 </script>
