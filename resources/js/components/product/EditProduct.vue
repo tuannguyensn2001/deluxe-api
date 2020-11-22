@@ -169,7 +169,6 @@ export default {
         async uploadFile() {
             const thumbnail = document.querySelector('#thumbnail');
             const file = thumbnail.files[0];
-            if (file === undefined) return null;
             const name = file.name;
             const metadata = {
                 contentType: file.type,
