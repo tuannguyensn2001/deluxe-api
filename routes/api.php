@@ -4,6 +4,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CollectionController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\Mobile\ProductAPIController;
+use App\Http\Controllers\Mobile\CartAPIController;
+use App\Http\Controllers\Mobile\AddressAPIController;
+use App\Http\Controllers\Mobile\OrderAPIController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -31,3 +35,20 @@ Route::get('/product',[ProductController::class,'index']);
 Route::get('/product/show/{id}',[ProductController::class,'show']);
 Route::post('/product/create',[ProductController::class,'create']);
 Route::put('/product/edit',[ProductController::class,'edit']);
+
+
+//Mobile
+Route::get('/mobile/products',[ProductAPIController::class,'index']);
+Route::get('/mobile/product/show/{id}',[ProductAPIController::class,'show']);
+
+
+Route::put('/mobile/cart/add',[CartAPIController::class,'addToCart']);
+Route::get('/mobile/cart/show/{id}',[CartAPIController::class,'show']);
+Route::put('/mobile/cart/increase',[CartAPIController::class,'increase']);
+Route::put('/mobile/cart/decrease',[CartAPIController::class,'decrease']);
+
+
+Route::get('/mobile/address',[AddressAPIController::class,'index']);
+Route::get('/mobile/address/show/{id}',[AddressAPIController::class,'show']);
+
+Route::post('/mobile/order/create',[OrderAPIController::class,'create']);
