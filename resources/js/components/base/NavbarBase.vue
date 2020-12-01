@@ -35,13 +35,28 @@ export default {
         this.listNav = [
             {
                 name: "Quản lý thẻ",
-                icon: "receipt",
+                icon: "sim_card",
                 link: "/card",
             },
             {
                 name: "Quản lý nạp tiền",
                 icon: "receipt",
                 link: "/deposit",
+            },
+            {
+                name: 'Quản lý giao dịch',
+                icon: "receipt",
+                link: '/transfer',
+            },
+            {
+                name: 'Quản lý rút tiền',
+                icon: 'receipt',
+                link: '/withdraw',
+            },
+            {
+                name: 'Quản lý người dùng',
+                icon: 'account_circle',
+                link: '/user',
             },
             {
                 name: "Quản lý nhóm sản phẩm",
@@ -52,6 +67,11 @@ export default {
                 name: "Quản lý sản phẩm",
                 icon: 'receipt',
                 link: '/product',
+            },
+            {
+                name: 'Quản lý đơn hàng',
+                icon: 'receipt',
+                link: '/order',
             }
 
         ]
@@ -59,3 +79,9 @@ export default {
 
 }
 </script>
+
+<style scoped>
+    aside{
+        z-index: 0;
+    }
+</style>

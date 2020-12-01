@@ -1,6 +1,5 @@
 <template>
   <header-base></header-base>
-
   <div class="app-drawer-layout mdc-top-app-bar--fixed-adjust">
     <navbar-base></navbar-base>
     <main class="mdc-drawer-app-content main-content">

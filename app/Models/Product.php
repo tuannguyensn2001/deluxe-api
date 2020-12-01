@@ -9,6 +9,7 @@ class Product extends Model
 {
     use HasFactory;
 
+
     public function collection()
     {
         return $this->belongsTo('App\Models\Collection');

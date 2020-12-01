@@ -48,7 +48,8 @@
                 <delete-warning
                 title="Xóa nhóm sản phẩm"
                 content="Bạn có chắc chắn muốn xóa nhóm sản phẩm này chứ ?"
-                @delete-confirm="confirmDelete"
+                action="Xóa"
+                @confirm="confirmDelete"
                 >
 
                 </delete-warning>
@@ -97,7 +98,7 @@ import DeleteWarning from "../modal/DeleteWarning";
                     },
                })
                 .then(response=>{
-                    console.log(response.data);
+                   this.listCollection=this.listCollection.filter(item=>item.id !== id);
                 })
             }
         }

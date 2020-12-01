@@ -14,8 +14,8 @@
                     <button type="button"
                             class="btn btn-primary"
                             data-dismiss="modal"
-                            @click="deleteConfirm"
-                    >Xóa</button>
+                            @click="confirm"
+                    >{{ action }}</button>
                 </div>
             </div>
         </div>
@@ -28,10 +28,11 @@
         props:{
             title: String,
             content: String,
+            action: String,
         },
         methods:{
-            deleteConfirm(){
-                this.$emit('deleteConfirm');
+            confirm(){
+                this.$emit('confirm');
             }
         }
 

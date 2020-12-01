@@ -8,6 +8,8 @@ use App\Http\Controllers\Mobile\ProductAPIController;
 use App\Http\Controllers\Mobile\CartAPIController;
 use App\Http\Controllers\Mobile\AddressAPIController;
 use App\Http\Controllers\Mobile\OrderAPIController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\WithDrawController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -36,6 +38,9 @@ Route::get('/product/show/{id}',[ProductController::class,'show']);
 Route::post('/product/create',[ProductController::class,'create']);
 Route::put('/product/edit',[ProductController::class,'edit']);
 
+Route::get('/orders',[OrderController::class,'index']);
+
+
 
 //Mobile
 Route::get('/mobile/products',[ProductAPIController::class,'index']);
@@ -52,3 +57,6 @@ Route::get('/mobile/address',[AddressAPIController::class,'index']);
 Route::get('/mobile/address/show/{id}',[AddressAPIController::class,'show']);
 
 Route::post('/mobile/order/create',[OrderAPIController::class,'create']);
+Route::get('/mobile/order',[OrderAPIController::class,'index']);
+
+Route::put(('/withdraw/edit'),[WithDrawController::class,'edit']);

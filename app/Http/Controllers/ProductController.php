@@ -65,7 +65,7 @@ class ProductController extends Controller
             unset($index->product_id, $index->created_at, $index->updated_at, $index->attribute_id);
         }
 
-//        $product->attributes= $attributes;
+        $product->attributes= $attributes;
 
         unset($product->user_id);
 

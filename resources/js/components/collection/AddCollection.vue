@@ -125,7 +125,7 @@ export default {
                 list: this.listAttributes,
             })
             .then(data=>{
-                console.log(data);
+                this.$router.push('/collection');
 
             })
             .catch(error=>console.log(error));

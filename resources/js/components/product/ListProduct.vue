@@ -64,5 +64,11 @@ export default {
 .global{
     display: none;
 }
+a{
+    margin-top: 20px;
+    margin-right: 20px;
+    text-decoration: none;
+    float: right;
+}
 
 </style>
