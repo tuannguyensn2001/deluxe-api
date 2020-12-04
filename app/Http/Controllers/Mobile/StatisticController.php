@@ -42,6 +42,7 @@ class StatisticController extends Controller
             $data = [
                 'date'=>$key,
                 'money'=>$value,
+                'type'=>'income',
             ];
             unset($this->income[$key]);
             array_push($this->income,$data);
@@ -53,6 +54,7 @@ class StatisticController extends Controller
             $data = [
                 'date'=>$key,
                 'money'=>$value,
+                'type'=>'pay',
             ];
             unset($this->pay[$key]);
             array_push($this->pay,$data);
@@ -60,8 +62,7 @@ class StatisticController extends Controller
         }
 
         $data=[];
-        $data['income'] = $this->income;
-        $data['pay'] = $this->pay;
+        $data = array_merge($this->income,$this->pay);
         return response()->json($data);
 
 
