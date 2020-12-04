@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Date;
+use App\DateHelper;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -14,7 +15,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-
+        $this->app->bind('DateHelper',function($app){
+            return new DateHelper();
+        });
     }
 
     /**

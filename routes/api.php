@@ -10,6 +10,7 @@ use App\Http\Controllers\Mobile\AddressAPIController;
 use App\Http\Controllers\Mobile\OrderAPIController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\WithDrawController;
+use App\Http\Controllers\Mobile\StatisticController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -60,3 +61,7 @@ Route::post('/mobile/order/create',[OrderAPIController::class,'create']);
 Route::get('/mobile/order',[OrderAPIController::class,'index']);
 
 Route::put(('/withdraw/edit'),[WithDrawController::class,'edit']);
+
+
+
+Route::get('/mobile/statistic/{email}',[StatisticController::class,'show']);
