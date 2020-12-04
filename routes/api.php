@@ -64,4 +64,4 @@ Route::put(('/withdraw/edit'),[WithDrawController::class,'edit']);
 
 
 
-Route::get('/mobile/statistic/{email}',[StatisticController::class,'show']);
+Route::get('/mobile/statistic/show/{email}',[StatisticController::class,'show']);
