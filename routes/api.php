@@ -11,6 +11,7 @@ use App\Http\Controllers\Mobile\OrderAPIController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\WithDrawController;
 use App\Http\Controllers\Mobile\StatisticController;
+use App\Http\Controllers\Mobile\UserAPIController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -65,3 +66,6 @@ Route::put(('/withdraw/edit'),[WithDrawController::class,'edit']);
 
 
 Route::get('/mobile/statistic/show/{email}',[StatisticController::class,'show']);
+
+Route::post('/mobile/user/edit',[UserAPIController::class,'show']);
+
