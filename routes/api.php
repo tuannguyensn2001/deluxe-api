@@ -57,9 +57,11 @@ Route::put('/mobile/cart/decrease',[CartAPIController::class,'decrease']);
 
 Route::get('/mobile/address',[AddressAPIController::class,'index']);
 Route::get('/mobile/address/show/{id}',[AddressAPIController::class,'show']);
+Route::put('/mobile/address/edit',[AddressAPIController::class,'edit']);
 
 Route::post('/mobile/order/create',[OrderAPIController::class,'create']);
 Route::get('/mobile/order',[OrderAPIController::class,'index']);
+Route::get('/mobile/order/show/{id}',[OrderAPIController::class,'show']);
 
 Route::put(('/withdraw/edit'),[WithDrawController::class,'edit']);
 
@@ -68,4 +70,6 @@ Route::put(('/withdraw/edit'),[WithDrawController::class,'edit']);
 Route::get('/mobile/statistic/show/{email}',[StatisticController::class,'show']);
 
 Route::post('/mobile/user/edit',[UserAPIController::class,'show']);
+
+
 

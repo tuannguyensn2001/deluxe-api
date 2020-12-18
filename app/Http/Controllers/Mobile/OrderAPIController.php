@@ -62,4 +62,18 @@ class OrderAPIController extends Controller
         $snapshot->set($value);
     }
 
+    public function show($id)
+    {
+        $order = Order::where('user_id','=',$id)
+            ->select('id','money','updated_at')
+            ->get();
+
+        foreach ($order as $item)
+        {
+            $item->update_at = Carbon::parse($item->updated_at)->toString();
+        }
+
+        return response()->json($order);
+    }
+
 }
