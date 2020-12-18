@@ -68,10 +68,13 @@ class OrderAPIController extends Controller
             ->select('id','money','updated_at')
             ->get();
 
-        foreach ($order as $item)
+        foreach ($order as &$item)
         {
-            $item->update_at = Carbon::parse($item->updated_at)->toString();
+            $item->updated_at = Carbon::parse($item->updated_at)->toString();
         }
+
+        unset($item);
+
 
         return response()->json($order);
     }
