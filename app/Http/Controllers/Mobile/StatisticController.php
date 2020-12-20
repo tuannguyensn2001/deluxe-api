@@ -206,7 +206,7 @@ class StatisticController extends Controller
 
     }
 
-    public function countLimitMonth($id): array
+    public function countLimitMonth($id,$money): array
     {
         try {
             $user = $this->database->getReference('user')->getChild($id)->getValue();
@@ -215,9 +215,9 @@ class StatisticController extends Controller
             $year = Carbon::now()->year;
 
 
-            $listTransfer = $this->getListTransfer($email,$month,$year);
+            $listTransfer = $this->getListTransfer($email,$month,$year,$money);
 
-            $listOrder = $this->getListOrder($id,$email);
+            $listOrder = $this->getListOrder($id,$email,$money);
 
             return array_merge($listTransfer,$listOrder);
 
@@ -227,27 +227,44 @@ class StatisticController extends Controller
 
     }
 
-    public function getListTransfer($email,$month,$year): array
+    public function getListTransfer($email,$month,$year,$money): array
     {
         $result = [];
         try {
             $transfer = $this->database->getReference('transfer')->getValue();
 
-            foreach ($transfer as $key=>$item)
-            {
+            if ($money === null){
+                foreach ($transfer as $key=>$item)
+                {
 
-                $created_at = $item['created_at'];
+                    $created_at = $item['created_at'];
 
-                if (str_contains($created_at,$month) && str_contains($created_at,$year) && $item['emailDepositor'] === $email){
-                    $index['id'] = $key;
-                    $index['money'] = $item['money'];
-                    $index['created_at'] = $item['created_at'];
-                    $index['email'] = $email;
-                    $index['type'] = 1;
+                    if (str_contains($created_at,$month) && str_contains($created_at,$year) && $item['emailDepositor'] === $email){
+                        $index['id'] = $key;
+                        $index['money'] = $item['money'];
+                        $index['created_at'] = $item['created_at'];
+                        $index['email'] = $email;
+                        $index['type'] = 1;
 
-                    $result[] = $index;
+                        $result[] = $index;
 
-                 }
+                    }
+                }
+            } else{
+                foreach ($transfer as $key=>$item)
+                {
+                    $created_at = $item['created_at'];
+                    if (str_contains($created_at,$month) && str_contains($created_at,$year) && $item['emailDepositor'] === $email && $item['money'] > $money){
+                        $index['id'] = $key;
+                        $index['money'] = $item['money'];
+                        $index['created_at'] = $item['created_at'];
+                        $index['email'] = $email;
+                        $index['type'] = 1;
+
+                        $result[] = $index;
+
+                    }
+                }
             }
 
 
@@ -260,7 +277,7 @@ class StatisticController extends Controller
         }
     }
 
-    public function getListOrder($id,$email): array
+    public function getListOrder($id,$email,$money): array
     {
         $order = Order::query()
             ->where('user_id','=',$id)
@@ -270,13 +287,26 @@ class StatisticController extends Controller
 
         $result = [];
 
-        foreach($order as $item){
-            $index['id'] = $item->id;
-            $index['money'] = $item->money;
-            $index['created_at'] = Carbon::parse($item->created_at)->toString();
-            $index['email'] = $email;
-            $index['type'] = 2;
-            $result[] = $index;
+        if ($money === null) {
+            foreach($order as $item){
+                $index['id'] = $item->id;
+                $index['money'] = $item->money;
+                $index['created_at'] = Carbon::parse($item->created_at)->toString();
+                $index['email'] = $email;
+                $index['type'] = 2;
+                $result[] = $index;
+            }
+        } else{
+            foreach($order as $item){
+               if ($item->money > $money) {
+                   $index['id'] = $item->id;
+                   $index['money'] = $item->money;
+                   $index['created_at'] = Carbon::parse($item->created_at)->toString();
+                   $index['email'] = $email;
+                   $index['type'] = 2;
+                   $result[] = $index;
+               }
+            }
         }
 
         return $result;
@@ -285,7 +315,16 @@ class StatisticController extends Controller
 
     public function showAllInMonth($id): \Illuminate\Http\JsonResponse
     {
-        return response()->json($this->countLimitMonth($id));
+        return response()->json($this->countLimitMonth($id,null));
+    }
+
+    public function LimitInMonth($id): \Illuminate\Http\JsonResponse
+    {
+        try {
+            $money = $this->database->getReference('wallet')->getChild($id)->getValue()['perLimitForTransaction'];
+            return response()->json($this->countLimitMonth($id,$money));
+        } catch (DatabaseException $e) {
+        }
     }
 
 
