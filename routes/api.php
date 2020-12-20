@@ -73,5 +73,6 @@ Route::get('/mobile/statistic/count/{id}',[StatisticController::class,'count']);
 
 Route::post('/mobile/user/edit',[UserAPIController::class,'show']);
 
+Route::get('/mobile/statistic/month/{id}',[StatisticController::class,'showAllInMonth']);
 
 

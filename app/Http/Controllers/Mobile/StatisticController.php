@@ -206,7 +206,7 @@ class StatisticController extends Controller
 
     }
 
-    public function countLimitMonth($id)
+    public function countLimitMonth($id): array
     {
         try {
             $user = $this->database->getReference('user')->getChild($id)->getValue();
@@ -219,18 +219,9 @@ class StatisticController extends Controller
 
             $listOrder = $this->getListOrder($id,$email);
 
-            $result = array_merge($listTransfer,$listOrder);
-
-            return response()->json(count($result),200);
+            return array_merge($listTransfer,$listOrder);
 
 
-
-
-
-
-
-
-            dd($user);
         } catch (DatabaseException $e) {
         }
 
@@ -290,9 +281,11 @@ class StatisticController extends Controller
 
         return $result;
 
+    }
 
-
-
+    public function showAllInMonth($id): \Illuminate\Http\JsonResponse
+    {
+        return response()->json($this->countLimitMonth($id));
     }
 
 
