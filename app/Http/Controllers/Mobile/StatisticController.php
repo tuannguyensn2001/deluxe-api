@@ -249,6 +249,7 @@ class StatisticController extends Controller
                         $result[] = $index;
 
                     }
+
                 }
             } else{
                 foreach ($transfer as $key=>$item)
