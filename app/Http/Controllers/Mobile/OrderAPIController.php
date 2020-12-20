@@ -70,10 +70,9 @@ class OrderAPIController extends Controller
 
         foreach ($order as &$item)
         {
-            $item->updated_at = Carbon::parse($item->updated_at)->toString();
+            $item->update=Carbon::parse($item->updated_at)->toString();
         }
 
-        unset($item);
 
 
         return response()->json($order);
