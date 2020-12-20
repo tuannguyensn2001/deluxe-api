@@ -17,18 +17,18 @@ class AddressAPIController extends Controller
 
     public function show($id): \Illuminate\Http\JsonResponse
     {
-//        $address = Address::where('user_id','=',$id)
-//            ->first();
-//        return response()->json($address,200);
-        $password = "hahaha";
-        $password = Hash::make($password);
-        return response()->json($password);
+        $address = Address::where('user_id','=',$id)
+            ->first();
+        return response()->json($address,200);
+
     }
 
     public function edit(Request  $request): \Illuminate\Http\JsonResponse
     {
         $user_id = $request->get('user_id');
         $address = Address::where('user_id','=',$user_id)->first();
+        if ($address === null) $address = new Address();
+        $address->user_id = $user_id;
         $address->fullname = $request->get('fullname');
         $address->phone = $request->get('phone');
         $address->address = $request->get('address');
