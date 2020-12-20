@@ -105,4 +105,16 @@ class CartAPIController extends Controller
         return response()->json($cart,200);
     }
 
+    public function delete(Request  $request): \Illuminate\Http\JsonResponse
+    {
+        $id = $request->get('id');
+        $cart = Cart::find($id);
+        $cart->number = 0;
+        $cart->total = 0;
+        $cart->save();
+
+        return response()->json(null,200);
+
+    }
+
 }

@@ -53,6 +53,7 @@ Route::put('/mobile/cart/add',[CartAPIController::class,'addToCart']);
 Route::get('/mobile/cart/show/{id}',[CartAPIController::class,'show']);
 Route::put('/mobile/cart/increase',[CartAPIController::class,'increase']);
 Route::put('/mobile/cart/decrease',[CartAPIController::class,'decrease']);
+Route::put('/mobile/cart/delete',[CartAPIController::class,'delete']);
 
 
 Route::get('/mobile/address',[AddressAPIController::class,'index']);
@@ -68,6 +69,7 @@ Route::put(('/withdraw/edit'),[WithDrawController::class,'edit']);
 
 
 Route::get('/mobile/statistic/show/{email}',[StatisticController::class,'show']);
+Route::get('/mobile/statistic/count/{id}',[StatisticController::class,'count']);
 
 Route::post('/mobile/user/edit',[UserAPIController::class,'show']);
 

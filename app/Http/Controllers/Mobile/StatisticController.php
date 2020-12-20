@@ -4,9 +4,12 @@ namespace App\Http\Controllers\Mobile;
 
 use App\DateHelper;
 use App\Http\Controllers\Controller;
+use App\Models\Order;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Kreait\Firebase\Database;
 use Kreait\Firebase\Exception\DatabaseException;
+use function GuzzleHttp\Psr7\str;
 
 class StatisticController extends Controller
 {
@@ -189,6 +192,107 @@ class StatisticController extends Controller
         }
 
         $this->listPayTransfer = $result;
+    }
+
+
+    public function count($id,Request  $request)
+    {
+       $option = $request->query('option') ? $request->query('option') : 'limit';
+       $unit = $request->query('unit') ? $request->query('unit') : 'month';
+
+       if ($option === 'limit' && $unit === 'month') {
+           $this->countLimitMonth($id);
+       }
+
+    }
+
+    public function countLimitMonth($id)
+    {
+        try {
+            $user = $this->database->getReference('user')->getChild($id)->getValue();
+            $email = $user['email'];
+            $month = Carbon::now()->shortEnglishMonth;
+            $year = Carbon::now()->year;
+
+
+            $listTransfer = $this->getListTransfer($email,$month,$year);
+
+            $listOrder = $this->getListOrder($id,$email);
+
+            $result = array_merge($listTransfer,$listOrder);
+
+            return response()->json(count($result),200);
+
+
+
+
+
+
+
+
+            dd($user);
+        } catch (DatabaseException $e) {
+        }
+
+    }
+
+    public function getListTransfer($email,$month,$year): array
+    {
+        $result = [];
+        try {
+            $transfer = $this->database->getReference('transfer')->getValue();
+
+            foreach ($transfer as $key=>$item)
+            {
+
+                $created_at = $item['created_at'];
+
+                if (str_contains($created_at,$month) && str_contains($created_at,$year) && $item['emailDepositor'] === $email){
+                    $index['id'] = $key;
+                    $index['money'] = $item['money'];
+                    $index['created_at'] = $item['created_at'];
+                    $index['email'] = $email;
+                    $index['type'] = 1;
+
+                    $result[] = $index;
+
+                 }
+            }
+
+
+
+
+            return $result;
+
+
+        } catch (DatabaseException $e) {
+        }
+    }
+
+    public function getListOrder($id,$email): array
+    {
+        $order = Order::query()
+            ->where('user_id','=',$id)
+            ->whereMonth('created_at','=',date('m'))
+            ->whereYear('created_at','=',date('Y'))
+            ->get();
+
+        $result = [];
+
+        foreach($order as $item){
+            $index['id'] = $item->id;
+            $index['money'] = $item->money;
+            $index['created_at'] = Carbon::parse($item->created_at)->toString();
+            $index['email'] = $email;
+            $index['type'] = 2;
+            $result[] = $index;
+        }
+
+        return $result;
+
+
+
+
     }
 
 
